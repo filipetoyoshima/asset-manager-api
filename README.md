@@ -4,7 +4,7 @@
 
 ### Database
 
-This project uses [MongoDB](https://www.mongodb.com/pt-br?_ga=2.96292764.1062467626.1643549034-1712413888.1637247134) as its database. To make it easier to setup the database, use docker to run the official Mongo Docker image:
+This project uses [MongoDB](https://www.mongodb.com/pt-br?_ga=2.96292764.1062467626.1643549034-1712413888.1637247134) as its database. To make it easier to setup the database, use [Docker](https://www.docker.com/) (if you don't have it installed, [install it](https://www.docker.com/get-started)) to run the official Mongo Docker image:
 
 ```bash
 docker run -p 27017:27017 --name asset-database -e MONGO_INITDB_ROOT_USERNAME='root' -e MONGO_INITDB_ROOT_PASSWORD='rootpassword' -d mongo:5.0.5
@@ -20,4 +20,15 @@ When re-running, you can just:
 
 ```bash
 docker run asset-database
+```
+
+### Packages
+
+If you don't have [Node](https://nodejs.org/) installed yet, install it. I recommend using [NVM](https://github.com/nvm-sh/nvm#installing-and-updating) to do so.
+
+After this, go to the project's root and:
+
+```bash
+npm i -g ts-node # required for typescript
+npm i
 ```
