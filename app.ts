@@ -10,7 +10,7 @@ interface App {
 class App {
     constructor() {
         this.express = express();
-        this.database();
+        this.setDatabase();
         this.setRoutes();
 
         this.express.listen(3000, () => {
@@ -18,12 +18,11 @@ class App {
         });
     }
 
-    database() {
-        mongoose.connect('mongodb://root:rootpassword@localhost:27017');
+    setDatabase() {
+        mongoose.connect(dbConfig.uri);
     }
 
     setRoutes() {
-        console.log('ROUTER => ', router);
         this.express.use(router);
     }
 }
