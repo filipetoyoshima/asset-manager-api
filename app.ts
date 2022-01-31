@@ -10,6 +10,7 @@ interface App {
 class App {
     constructor() {
         this.express = express();
+        this.express.use(express.json());
         this.setDatabase();
         this.setRoutes();
 
