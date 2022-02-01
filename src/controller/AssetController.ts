@@ -18,3 +18,8 @@ export const readAsset = (
     req: Request,
     res: Response
 ):Promise<void> => AssetCrud.read(req, res);
+
+export const updateAsset = (
+    req: Request,
+    res: Response
+):Promise<void> => AssetCrud.update(req, res);

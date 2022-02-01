@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { ParamsDictionary } from 'express-serve-static-core';
 
 export class crudClass<T> {
     constructor (
@@ -39,6 +40,19 @@ export class crudClass<T> {
     ): Promise<void> {
         try {
             const data = await this.model.find();
+            res.status(200).send(data);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    }
+
+    public async update(
+        req: Request<ParamsDictionary, {}, Partial<T>>, // todo: type the params properly
+        res: Response
+    ): Promise<void> {
+        try {
+            const id = req.params.id;
+            const data = await this.model.findByIdAndUpdate(id, req.body, { new: true });
             res.status(200).send(data);
         } catch (error) {
             res.status(500).send(error);
