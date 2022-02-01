@@ -1,5 +1,5 @@
 import express from 'express';
-import { controlTest } from './controller/controltest';
+import { CreateAsset } from './controller/AssetController';
 
 const router = express.Router();
 
@@ -7,6 +7,6 @@ router.get('/', (req: express.Request, res: express.Response) => {
     res.send('Now on Router')
 })
 
-router.post('/twice', controlTest);
+router.post('/asset', CreateAsset);
 
 export default router;
