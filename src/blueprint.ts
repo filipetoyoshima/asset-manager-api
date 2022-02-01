@@ -28,7 +28,11 @@ export class crudClass<T> {
         try {
             const id = req.params.id;
             const data = await this.model.findById(id);
-            res.status(200).send(data);
+            if (data !== null) {
+                res.status(200).send(data);
+            } else {
+                res.status(404).send('Not Found');
+            }   
         } catch (error) {
             res.status(500).send(error);
         }
@@ -54,6 +58,23 @@ export class crudClass<T> {
             const id = req.params.id;
             const data = await this.model.findByIdAndUpdate(id, req.body, { new: true });
             res.status(200).send(data);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    }
+
+    public async delete(
+        req: Request,
+        res: Response
+    ): Promise<void> {
+        try {
+            const id = req.params.id;
+            const data = await this.model.findByIdAndDelete(id);
+            if (data !== null) {
+                res.status(200).send(data);
+            } else {
+                res.status(404).send('Not found');
+            }
         } catch (error) {
             res.status(500).send(error);
         }

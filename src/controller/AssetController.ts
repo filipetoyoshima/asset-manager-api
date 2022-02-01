@@ -23,3 +23,8 @@ export const updateAsset = (
     req: Request,
     res: Response
 ):Promise<void> => AssetCrud.update(req, res);
+
+export const deleteAsset = (
+    req: Request,
+    res: Response
+):Promise<void> => AssetCrud.delete(req, res);
