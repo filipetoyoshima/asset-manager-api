@@ -1,14 +1,10 @@
 import { Request, Response } from 'express';
 import Asset, { IAsset } from '../model/Asset';
+import { crudClass } from '../blueprint';
 
-export const CreateAsset = async (
-    req: Request<{}, {}, IAsset>,
+const AssetCrud = new crudClass<IAsset>(Asset);
+
+export const createAsset = (
+    req: Request,
     res: Response
-): Promise<void> => {
-    try {
-        const data = await Asset.create(req.body);
-        res.status(201).send(data);
-    } catch(error) {
-        res.status(500).send(error);
-    }
-}
+):Promise<void> => AssetCrud.create(req, res);
