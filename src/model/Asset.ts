@@ -2,7 +2,7 @@ import { Schema, model, Document } from "mongoose";
 
 export interface IAsset extends Document {
     name: string;
-    description: string;
+    description?: string;
     model: string;
     status: string;
     healthLevel: number;
