@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, SchemaTypeOptions } from "mongoose";
 
 export interface IAsset extends Document {
     name: string;
@@ -6,6 +6,7 @@ export interface IAsset extends Document {
     model: string;
     status: string;
     healthLevel: number;
+    owner: string;
 }
 
 const AssetSchema = new Schema({
@@ -35,6 +36,10 @@ const AssetSchema = new Schema({
         required: true,
         min: [0, "Health level cannot be less than 0"],
         max: [100, "Health level cannot be more than 100"],
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "Person",
     }
 });
 
