@@ -40,6 +40,7 @@ const AssetSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "Person",
+        required: true,
     }
 });
 

@@ -9,12 +9,12 @@ export const createAsset = (
     res: Response
 ):Promise<void> => AssetCrud.create(req, res);
 
-export const readOneAsset = (
+export const findAsset = (
     req: Request,
     res: Response
 ):Promise<void> => AssetCrud.readOne(req, res);
 
-export const readAsset = (
+export const findAssets = (
     req: Request,
     res: Response
 ):Promise<void> => AssetCrud.read(req, res);
