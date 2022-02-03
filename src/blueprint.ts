@@ -15,6 +15,7 @@ export class crudClass<T> {
     ): Promise<void> {
         try {
             const data = await this.model.create(req.body);
+            if (data.password) delete data.password;
             res.status(201).send(data);
         } catch (error) {
             res.status(500).send(error);

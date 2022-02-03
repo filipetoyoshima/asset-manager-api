@@ -1,13 +1,17 @@
 import { Request, Response } from 'express';
 import Person, { IPerson } from '../model/Person';
 import { crudClass } from '../blueprint';
+import bcrypt from 'bcrypt';
 
 const PersonCrud = new crudClass<IPerson>(Person);
 
-export const createPerson = ( //todo: crypto password
-    req: Request,
+export const createPerson = (
+    req: Request<{}, {}, IPerson>,
     res: Response
-):Promise<void> => PersonCrud.create(req, res);
+):Promise<void> => {
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
+    return PersonCrud.create(req, res);
+};
 
 export const findPerson = (
     req: Request,
@@ -20,9 +24,15 @@ export const findPeople = (
 ):Promise<void> => PersonCrud.read(req, res);
 
 export const updatePerson = (
-    req: Request,
+    req: Request<{}, {}, Partial<IPerson>>,
     res: Response
-):Promise<void> => PersonCrud.update(req, res);
+):Promise<void> => {
+    if (req.body.password) {
+        res.status(400).send('Password cannot be updated');
+        return Promise.resolve();
+    }
+    return PersonCrud.update(req, res);
+};
 
 export const deletePerson = (
     req: Request,

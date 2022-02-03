@@ -2,7 +2,8 @@ import { Schema, model, Document } from "mongoose";
 
 export interface IPerson extends Document {
     name: string;
-
+    email: string;
+    password: string;
 }
 
 const PersonSchema = new Schema({
