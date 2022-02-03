@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Person, { IPerson } from '../model/Person';
 import { crudClass } from '../blueprint';
 import bcrypt from 'bcrypt';
+import { signJWT } from '../services/auth';
 
 const PersonCrud = new crudClass<IPerson>(Person);
 
@@ -58,7 +59,8 @@ export const login = async (
             res.status(401).send('Invalid password');
             return;
         }
-        res.status(200).send('token here');
+        const token = await signJWT({ email });
+        res.status(200).json({ token });
     } catch (error) {
         res.status(500).send(error);
     }
