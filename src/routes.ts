@@ -1,6 +1,6 @@
 import express from 'express';
 import { createAsset, findAsset, findAssets, updateAsset, deleteAsset } from './controller/AssetController';
-import { createPerson, findPerson, findPeople, updatePerson, deletePerson } from './controller/PersonController';
+import { createPerson, findPerson, findPeople, updatePerson, deletePerson, login } from './controller/PersonController';
 
 const router = express.Router();
 
@@ -14,6 +14,7 @@ router.get('/person/:id', findPerson);
 router.get('/people', findPeople);
 router.put('/person/:id', updatePerson);
 router.delete('/person/:id', deletePerson);
+router.post('/login', login);
 
 // Asset
 router.post('/asset', createAsset);
