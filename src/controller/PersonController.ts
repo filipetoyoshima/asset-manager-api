@@ -65,3 +65,15 @@ export const login = async (
         res.status(500).send(error);
     }
 }
+
+export const getMe = async (
+    req: Request,
+    res: Response
+):Promise<void> => {
+    try {
+        const person = await Person.find({ email: req.user });
+        res.status(200).json(person);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}

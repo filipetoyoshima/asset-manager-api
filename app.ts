@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import { connect } from 'mongoose';
 import router from './src/routes';
 import dbConfig from './src/database/index';
 
@@ -7,8 +7,15 @@ interface App {
     express: express.Application;
 }
 
+declare module "express" {
+    export interface Request {
+        user?: string;
+    }
+}
+
 class App {
     constructor() {
+
         this.express = express();
         this.express.use(express.json());
         this.setDatabase();
@@ -20,7 +27,7 @@ class App {
     }
 
     setDatabase() {
-        mongoose.connect(dbConfig.uri);
+        connect(dbConfig.uri);
     }
 
     setRoutes() {
