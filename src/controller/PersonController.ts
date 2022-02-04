@@ -59,7 +59,7 @@ export const login = async (
             res.status(401).send('Invalid password');
             return;
         }
-        const token = await signJWT({ email });
+        const token = await signJWT({ id: person._id });
         res.status(200).json({ token });
     } catch (error) {
         res.status(500).send(error);
@@ -71,7 +71,7 @@ export const getMe = async (
     res: Response
 ):Promise<void> => {
     try {
-        const person = await Person.find({ email: req.user });
+        const person = await Person.findById(req.user);
         res.status(200).json(person);
     } catch (error) {
         res.status(500).send(error);

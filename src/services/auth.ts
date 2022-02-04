@@ -24,7 +24,7 @@ export const verifyJWT = (req: Request, res: Response, next: NextFunction): void
             return;
         }
         const payload:any = jwt.verify(token, secret);
-        req.user = payload.email;
+        req.user = payload.id;
         next();
     } catch (e) {
         res.status(401).send('Unauthorized');
