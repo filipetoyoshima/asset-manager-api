@@ -4,6 +4,8 @@ export interface IUnit extends Document {
     name: string;
     description?: string;
     model: string;
+    assets: Array<Schema.Types.ObjectId>;
+    company: Schema.Types.ObjectId;
 }
 
 const UnitSchema = new Schema({
