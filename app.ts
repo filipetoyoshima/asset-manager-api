@@ -2,6 +2,7 @@ import express from 'express';
 import { connect } from 'mongoose';
 import router from './src/routes';
 import dbConfig from './src/database/index';
+import cors from 'cors';
 
 interface App {
     express: express.Application;
@@ -18,6 +19,7 @@ class App {
 
         this.express = express();
         this.express.use(express.json());
+        this.express.use(cors());
         this.setDatabase();
         this.setRoutes();
 
