@@ -6,7 +6,6 @@ export interface IAsset extends Document {
     model: string;
     status: string;
     healthLevel: number;
-    owner: string;
 }
 
 const AssetSchema = new Schema({
@@ -37,9 +36,9 @@ const AssetSchema = new Schema({
         min: [0, "Health level cannot be less than 0"],
         max: [100, "Health level cannot be more than 100"],
     },
-    owner: {
+    unit: {
         type: Schema.Types.ObjectId,
-        ref: "Person",
+        ref: "Unit",
         required: true,
     }
 });
