@@ -21,8 +21,8 @@ class App {
         this.setDatabase();
         this.setRoutes();
 
-        this.express.listen(3000, () => {
-            console.log('Example app listening on port 3000!');
+        this.express.listen(3001, () => {
+            console.log('App listening on port 3001!');
         });
     }
 
