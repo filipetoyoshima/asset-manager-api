@@ -1,4 +1,5 @@
 import { Schema, model, Document } from "mongoose";
+import Asset from "../model/Asset";
 
 export interface IUnit extends Document {
     name: string;
@@ -25,8 +26,13 @@ const UnitSchema = new Schema({
     company: {
         type: Schema.Types.ObjectId,
         ref: "Company",
-        required: true,
+        required: false,
     }
+});
+
+UnitSchema.pre(/delete/, { document: false, query: true}, async function () {
+    console.log("pre delete unit");
+    Asset.deleteMany({ unit: this.getQuery()._id });
 });
 
 export default model<IUnit>("Unit", UnitSchema);

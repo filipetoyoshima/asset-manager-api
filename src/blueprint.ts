@@ -70,7 +70,7 @@ export class crudClass<T> {
     ): Promise<void> {
         try {
             const id = req.params.id;
-            const data = await this.model.findByIdAndDelete(id);
+            const data = await this.model.deleteOne({ _id: id });
             if (data !== null) {
                 res.status(200).send(data);
             } else {
