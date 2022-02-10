@@ -32,3 +32,25 @@ After this, go to the project's root and:
 npm i -g ts-node # required for typescript
 npm i
 ```
+
+### Seed
+
+In order to work locally, some local data would be nice. There is a script to generate fake data and populate the connected database, at collection "test".
+
+```bash
+npm run seed
+```
+
+## Run
+
+After setting up everything you need, make sure you have a local mongo database running on port 27017
+
+```bash
+docker run asset-database # or the name you gave to this docker on setup
+```
+
+You can use nodemon to keep the project live while editing, you can do that thought the command:
+
+```bash
+npm run dev
+```

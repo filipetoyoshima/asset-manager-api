@@ -2,6 +2,7 @@ import express from 'express';
 import { connect } from 'mongoose';
 import router from './src/routes';
 import dbConfig from './src/database/index';
+import dbSeed from './src/database/seed';
 import cors from 'cors';
 
 interface App {
@@ -29,7 +30,21 @@ class App {
     }
 
     setDatabase() {
-        connect(dbConfig.uri);
+        connect(dbConfig.uri)
+            .then(() => {
+                console.log('Database connected');
+                if (process.argv.includes('seed')) {
+                    console.log('Seeding database');
+                    dbSeed()
+                        .then(() => {
+                            process.exit(0);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            process.exit(1);
+                        })
+                }
+            });
     }
 
     setRoutes() {
