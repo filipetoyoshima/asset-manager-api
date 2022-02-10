@@ -24,7 +24,12 @@ const PersonSchema = new Schema({
         type: String,
         required: true,
         select: false,
-    }
+    },
+    company: {
+        type: Schema.Types.ObjectId,
+        ref: "Company",
+        required: true,
+    },
 });
 
 export default module.exports = model<IPerson>("Person", PersonSchema);

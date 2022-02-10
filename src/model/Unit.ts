@@ -31,8 +31,10 @@ const UnitSchema = new Schema({
 });
 
 UnitSchema.pre(/delete/, { document: false, query: true}, async function () {
-    console.log("pre delete unit");
-    Asset.deleteMany({ unit: this.getQuery()._id });
+    const units = await this.model.find(this.getQuery()).exec();
+    await Promise.all(units.map(async (unit) => {
+        await Asset.deleteMany({ unit: unit._id });
+    }));
 });
 
 export default model<IUnit>("Unit", UnitSchema);

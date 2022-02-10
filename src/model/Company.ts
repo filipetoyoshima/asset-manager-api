@@ -31,9 +31,11 @@ const CompanySchema = new Schema({
 });
 
 CompanySchema.pre(/delete/, { document: false, query: true}, async function () {
-    console.log("pre delete company");
-    Unit.deleteMany({ company: this.getQuery()._id });
-    Person.deleteMany({ company: this.getQuery()._id });
+    const companies = await this.model.find(this.getQuery()).exec();
+    await Promise.all(companies.map(async (company) => {
+        await Unit.deleteMany({ company: company._id });
+        await Person.deleteMany({ company: company._id });
+    }));
 });
 
 export default model<ICompany>("Company", CompanySchema);

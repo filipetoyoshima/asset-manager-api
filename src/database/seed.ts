@@ -129,6 +129,7 @@ export default async function seed () {
         name: "João da Silva",
         email: "joaosilva@mail.com",
         password: bcrypt.hashSync("123456", 10),
+        company: c1._id,
     })
 
     const c2 = await Company.create({
