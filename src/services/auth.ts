@@ -11,7 +11,7 @@ export const signJWT = (payload: object, options: object = {}): string => {
 export const verifyJWT = (req: Request, res: Response, next: NextFunction): void => {
     try {
         if (!req.headers.authorization) {
-            res.status(401).send('Unauthorized');
+            res.status(401).send('Unauthorized, no token provided');
             return;
         }
         const [scheme, token] = req.headers.authorization.split(' ');
@@ -20,13 +20,22 @@ export const verifyJWT = (req: Request, res: Response, next: NextFunction): void
             return;
         }
         if (!token) {
-            res.status(401).send('Unauthorized');
+            res.status(401).send('Unauthorized, empty token');
             return;
         }
         const payload:any = jwt.verify(token, secret);
         req.user = payload.id;
         next();
     } catch (e) {
-        res.status(401).send('Unauthorized');
+        if (e instanceof jwt.TokenExpiredError) {
+            res.status(401).send('Token expired');
+            return;
+        }
+        if (e instanceof jwt.JsonWebTokenError) {
+            res.status(401).send('Invalid token');
+            return;
+        }
+        console.error(e);
+        res.status(500).send('Unexpected error');
     }
 }
