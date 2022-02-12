@@ -2,8 +2,8 @@ import express from 'express';
 import { verifyJWT } from './services/auth';
 import { createAsset, findAsset, findAssets, updateAsset, deleteAsset } from './controller/AssetController';
 import { createPerson, findPerson, findPeople, updatePerson, deletePerson, login, getMe } from './controller/PersonController';
-import { createUnit, findUnit, findUnits, updateUnit, deleteUnit } from './controller/UnitController';
-import { createCompany, findCompany, findCompanys, updateCompany, deleteCompany } from './controller/CompanyController';
+import { createUnit, findUnit, findUnits, updateUnit, deleteUnit, getUnitAssets } from './controller/UnitController';
+import { createCompany, findCompany, findCompanys, updateCompany, deleteCompany, getCompanyUnits } from './controller/CompanyController';
 
 const router = express.Router();
 
@@ -30,13 +30,15 @@ router.delete('/asset/:id', verifyJWT, deleteAsset);
 // Unit
 router.get('/units', verifyJWT, findUnits);
 router.get('/unit/:id', verifyJWT, findUnit);
+router.get('/unit/:id/assets', verifyJWT, getUnitAssets);
 router.post('/unit', verifyJWT, createUnit);
 router.put('/unit/:id', verifyJWT, updateUnit);
 router.delete('/unit/:id', verifyJWT, deleteUnit);
 
 // Company
-router.get('/companys', verifyJWT, findCompanys);
+router.get('/companies', verifyJWT, findCompanys);
 router.get('/company/:id', verifyJWT, findCompany);
+router.get('/company/:id/units', verifyJWT, getCompanyUnits);
 router.post('/company', verifyJWT, createCompany);
 router.put('/company/:id', verifyJWT, updateCompany);
 router.delete('/company/:id', verifyJWT, deleteCompany);
