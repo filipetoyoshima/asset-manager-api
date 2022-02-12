@@ -4,6 +4,7 @@ export interface IPerson extends Document {
     name: string;
     email: string;
     password: string;
+    company: Schema.Types.ObjectId;
 }
 
 const PersonSchema = new Schema({

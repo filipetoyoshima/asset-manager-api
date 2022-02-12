@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Company, { ICompany } from '../model/Company';
 import Unit from '../model/Unit';
+import Person from '../model/Person';
 import { crudClass } from '../blueprint';
 
 const CompanyCrud = new crudClass<ICompany>(Company);
@@ -10,10 +11,31 @@ export const createCompany = (
     res: Response
 ):Promise<void> => CompanyCrud.create(req, res);
 
-export const findCompany = (
+export const findCompany = async (
     req: Request,
     res: Response
-):Promise<void> => CompanyCrud.readOne(req, res);
+):Promise<void> => {
+    if (req.params.id === 'me') {
+        try {
+            const user = await Person.findById(req.user).exec();
+            if (!user) {
+                res.status(404).send('User not found');
+                return;
+            }
+            const company = await Company.findById(user.company).exec();
+            if (!company) {
+                res.status(404).send('Company not found');
+                return;
+            }
+            res.send(company);
+        } catch (e) {
+            console.error('Error at findCompany\n', e);
+            res.status(500).send('Unexpected error');
+        }
+    } else {
+        CompanyCrud.readOne(req, res);
+    }
+};
 
 export const findCompanys = (
     req: Request,
@@ -35,7 +57,17 @@ export const getCompanyUnits = async (
     res: Response
 ):Promise<void> => {
     try {
-        const company = await Company.findById(req.params.id).exec();
+        let company: ICompany | null;
+        if (req.params.id === 'me') {
+            const user = await Person.findById(req.user).exec();
+            if (!user) {
+                res.status(404).send('User not found');
+                return;
+            }
+            company = await Company.findById(user.company).exec();
+        } else {
+            company = await Company.findById(req.params.id).exec();
+        }
         if (!company) {
             res.status(404).send('Company not found');
             return;
@@ -43,7 +75,7 @@ export const getCompanyUnits = async (
         const units = await Unit.find({ company: company._id }).exec();
         res.send({company, units});
     } catch (e) {
-        console.error(e);
+        console.error('Error at getCompanyUnits\n', e);
         res.status(500).send('Unexpected error');
     }
 }
