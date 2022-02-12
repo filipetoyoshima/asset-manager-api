@@ -29,7 +29,8 @@ class App {
         });
     }
 
-    setDatabase() {
+    async setDatabase() {
+        console.log('Connecting to database...');
         connect(dbConfig.uri)
             .then(() => {
                 console.log('Database connected');
@@ -44,6 +45,11 @@ class App {
                             process.exit(1);
                         })
                 }
+            })
+            .catch((e) => {
+                console.error('Database connection error');
+                console.error(e);
+                process.exit(1);
             });
     }
 
