@@ -1,11 +1,11 @@
 import { Schema, model, Document } from "mongoose";
 import Asset from "../model/Asset";
+import Company from "../model/Company";
 
 export interface IUnit extends Document {
     name: string;
     description?: string;
     model: string;
-    assets: Array<Schema.Types.ObjectId>;
     company: Schema.Types.ObjectId;
 }
 
@@ -18,11 +18,6 @@ const UnitSchema = new Schema({
         type: String,
         required: false,
     },
-    assets: [{
-        type: Schema.Types.ObjectId,
-        ref: "Asset",
-        required: true,
-    }],
     company: {
         type: Schema.Types.ObjectId,
         ref: "Company",
