@@ -3,6 +3,13 @@ import Company from "../model/Company";
 import Person from "../model/Person";
 import Unit from "../model/Unit";
 import bcrypt from "bcrypt";
+import fs from "fs";
+
+const images = [1, 2, 3, 4].map(i => ({
+    data: fs.readFileSync(`./src/database/seedImages/img${i}.jpg`),
+    contentType: "image/jpeg",
+}));
+
 
 export default async function seed () {
     console.log('Removing prior data...');
@@ -35,6 +42,7 @@ export default async function seed () {
         status: "running",
         healthLevel: 100,
         unit: u1._id,
+        image: images[0],
     })
 
     await Asset.create({
@@ -44,6 +52,7 @@ export default async function seed () {
         status: "running",
         healthLevel: 98,
         unit: u1._id,
+        image: images[1],
     })
 
     await Asset.create({
@@ -53,15 +62,17 @@ export default async function seed () {
         status: "running",
         healthLevel: 75,
         unit: u1._id,
+        image: images[2],
     });
 
     await Asset.create({
         name: "Maquina de Calibragem 4",
         description: "This is the fourth asset",
         model: "Freio de Roda",
-        status: "alerting",
+        status: "running",
         healthLevel: 50,
         unit: u1._id,
+        image: images[3],
     });
 
     await Asset.create({

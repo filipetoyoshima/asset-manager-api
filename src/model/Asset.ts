@@ -6,6 +6,7 @@ export interface IAsset extends Document {
     model: string;
     status: string;
     healthLevel: number;
+    image?: any;
 }
 
 const AssetSchema = new Schema({
@@ -40,7 +41,12 @@ const AssetSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Unit",
         required: true,
-    }
+    },
+    image: {
+        required: false,
+        data: Buffer,
+        contentType: String,
+    },
 });
 
 export default model<IAsset>("Asset", AssetSchema);
