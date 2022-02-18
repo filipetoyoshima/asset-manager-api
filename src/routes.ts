@@ -1,6 +1,6 @@
 import express from 'express';
 import { verifyJWT } from './services/auth';
-import { createAsset, findAsset, findAssets, updateAsset, deleteAsset } from './controller/AssetController';
+import { createAsset, findAsset, findAssets, updateAsset, deleteAsset, getAssetImage } from './controller/AssetController';
 import { createPerson, findPerson, findPeople, updatePerson, deletePerson, login, getMe } from './controller/PersonController';
 import { createUnit, findUnit, findUnits, updateUnit, deleteUnit, getUnitAssets } from './controller/UnitController';
 import { createCompany, findCompany, findCompanys, updateCompany, deleteCompany, getCompanyUnits } from './controller/CompanyController';
@@ -23,6 +23,7 @@ router.delete('/person/:id', verifyJWT, deletePerson);
 // Asset
 router.get('/assets', verifyJWT, findAssets);
 router.get('/asset/:id', verifyJWT,findAsset);
+router.get('/asset/:id/image', verifyJWT, getAssetImage);
 router.post('/asset', verifyJWT,createAsset);
 router.put('/asset/:id', verifyJWT,updateAsset);
 router.delete('/asset/:id', verifyJWT, deleteAsset);
