@@ -44,6 +44,7 @@ const AssetSchema = new Schema({
     },
     image: {
         required: false,
+        select: false,
         data: Buffer,
         contentType: String,
     },

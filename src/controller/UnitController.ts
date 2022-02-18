@@ -40,7 +40,7 @@ export const getUnitAssets = async (
             res.status(404).send('Unit not found');
             return;
         }
-        const assets = await Asset.find({ unit: unit._id }).exec();
+        const assets = await Asset.find({ unit: unit._id }, { image: 0 });
         res.send({unit, assets});
     } catch (e) {
         console.error(e);
