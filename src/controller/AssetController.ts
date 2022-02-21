@@ -39,11 +39,12 @@ export const getAssetImage = async (
             res.status(404).send('Asset not found');
             return;
         }
+        const img = Buffer.from(asset.image.data, 'base64');
         res.writeHead(200, {
             'Content-Type': asset.image.contentType,
-            'Content-Length': asset.image.data.length
+            'Content-Length': img.length
         })
-        res.end(asset.image.data);
+        res.end(img);
     } catch (e) {
         console.error(e);
         res.status(500).send('Unexpected error');

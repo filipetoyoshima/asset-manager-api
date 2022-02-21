@@ -6,10 +6,9 @@ import bcrypt from "bcrypt";
 import fs from "fs";
 
 const images = [1, 2, 3, 4].map(i => ({
-    data: fs.readFileSync(`./src/database/seedImages/img${i}.jpg`),
+    data: fs.readFileSync(`./src/database/seedImages/img${i}.jpg`, {encoding: "base64"}),
     contentType: "image/jpeg",
 }));
-
 
 export default async function seed () {
     console.log('Removing prior data...');
