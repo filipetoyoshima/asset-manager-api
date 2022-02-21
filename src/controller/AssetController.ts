@@ -36,7 +36,15 @@ export const getAssetImage = async (
     try {
         const asset = await Asset.findById(req.params.id).select('+image').exec();
         if (!asset) {
-            res.status(404).send('Asset not found');
+            res.status(404).json({
+                message: 'Asset not found',
+            });
+            return;
+        }
+        if (!asset.image || !asset.image.data) {
+            res.status(404).send({
+                message: 'Asset has no image',
+            });
             return;
         }
         const img = Buffer.from(asset.image.data, 'base64');
