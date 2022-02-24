@@ -10,7 +10,7 @@ This project uses [MongoDB](https://www.mongodb.com/pt-br?_ga=2.96292764.1062467
 docker run -p 27017:27017 --name asset-database -e MONGO_INITDB_ROOT_USERNAME='root' -e MONGO_INITDB_ROOT_PASSWORD='rootpassword' -d mongo:5.0.5
 ```
 
-> The enviroment variables `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` may be changed as it suits you.
+> The enviroment variables `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` may be changed as it suits you, since you change the code to connect propperly.
 
 > `mongo:5.0.5` is a way to ensure that the version use locally is the same as the version used in the project development, but (probably) is possible to use other versions, so you can try `mongo:latest` instead.
 
